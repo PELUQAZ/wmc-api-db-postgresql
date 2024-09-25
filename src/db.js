@@ -8,11 +8,11 @@ import {
 } from "./config.js";
 
 export const pool = new pg.Pool({
-  user: "wmcadmin", //DB_USER,
-  host: "wmc-db.postgres.database.azure.com", //DB_HOST,
-  password: "WorkMarketCap2024*.", //DB_PASSWORD,
-  database: "wmc_db", //DB_DATABASE,
-  port: "5432", //DB_PORT,
+  user: DB_USER,
+  host: DB_HOST,
+  password: DB_PASSWORD,
+  database: DB_DATABASE,
+  port: DB_PORT,
   ssl: {
     rejectUnauthorized: false  // Permite conexiones SSL, aunque no verifique el certificado
   }
