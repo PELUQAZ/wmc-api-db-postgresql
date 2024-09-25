@@ -1,13 +1,13 @@
 import { pool } from "../db.js";
 
 export const getUsers = async (req, res) => {
-  const response = await pool.query("SELECT * FROM users ORDER BY id ASC");
+  const response = await pool.query("SELECT * FROM usuarios_wmc ORDER BY id ASC");
   res.status(200).json(response.rows);
 };
 
 export const getUserById = async (req, res) => {
   const id = parseInt(req.params.id);
-  const response = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+  const response = await pool.query("SELECT * FROM usuarios_wmc WHERE id = $1", [id]);
   res.json(response.rows);
 };
 
@@ -16,7 +16,7 @@ export const createUser = async (req, res) => {
     const { name, email } = req.body;
 
     const { rows } = await pool.query(
-      "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *",
+      "INSERT INTO usuarios_wmc (name, email) VALUES ($1, $2) RETURNING *",
       [name, email]
     );
 
@@ -40,12 +40,12 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { rowCount } = await pool.query("DELETE FROM users where id = $1", [
+  const { rowCount } = await pool.query("DELETE FROM usuarios_wmc where id = $1", [
     id,
   ]);
 
   if (rowCount === 0) {
-    return res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: "Usuario no encontrado" });
   }
 
   return res.sendStatus(204);
