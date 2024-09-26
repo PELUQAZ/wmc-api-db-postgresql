@@ -10,12 +10,12 @@ import {pool} from '../db.js'
 
 const router = Router();
 
-router.get("/users", async (req, res) => {
+/*router.get("/users", async (req, res) => {
   const result = await pool.query('SELECT * FROM usuarios_wmc');
   console.log(result);
   res.send('Obteniendo usuarios');
-});
-//router.get("/users", getUsers);
+});*/
+router.get("/users", getUsers);
 
 router.get("/users/:id", getUserById);
 router.post("/users", createUser);

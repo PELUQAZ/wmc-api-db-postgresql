@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e76e81d4-4881-4449-9d2a-5704853d7f72/resourceGroups/DAO-WMC/providers/Microsoft.Web/sites/wmc-api-services",
+    "appService.deploySubpath": "."
+}
