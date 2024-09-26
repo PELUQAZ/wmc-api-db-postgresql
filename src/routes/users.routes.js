@@ -22,7 +22,7 @@ router.get("/users", async (req, res, next) => {
   try {
     const users = await pool.query('SELECT * FROM usuarios_wmc');
     res.json(users);
-  } catch {
+  } catch (err) {
     next(err);
   }
 });
