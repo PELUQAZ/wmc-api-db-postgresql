@@ -15,7 +15,18 @@ const router = Router();
   console.log(result);
   res.send('Obteniendo usuarios');
 });*/
-router.get("/users", getUsers);
+
+////////////////////////////////////////
+//router.get("/users", getUsers);
+router.get("/users", async (req, res, next) => {
+  try {
+    const users = await pool.query('SELECT * FROM usuarios_wmc');
+    res.json(users);
+  } catch {
+    next(err);
+  }
+});
+////////////////////////////////////////
 
 router.get("/users/:id", getUserById);
 router.post("/users", createUser);
