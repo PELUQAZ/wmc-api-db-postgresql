@@ -17,15 +17,15 @@ const router = Router();
 });*/
 
 ////////////////////////////////////////
-//router.get("/users", getUsers);
-router.get("/users", async (req, res, next) => {
+router.get("/users", getUsers);
+/*router.get("/users", async (req, res, next) => {
   try {
     const users = await pool.query('SELECT * FROM usuarios_wmcX');
     res.json(users);
   } catch (err) {
     next('ERROR LVM 2' + err);
   }
-});
+});*/
 ////////////////////////////////////////
 
 router.get("/users/:id", getUserById);
