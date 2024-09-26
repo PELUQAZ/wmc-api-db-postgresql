@@ -20,10 +20,10 @@ const router = Router();
 //router.get("/users", getUsers);
 router.get("/users", async (req, res, next) => {
   try {
-    const users = await pool.query('SELECT * FROM usuarios_wmc');
+    const users = await pool.query('SELECT * FROM usuarios_wmcX');
     res.json(users);
   } catch (err) {
-    next(err);
+    next('ERROR LVM 2' + err);
   }
 });
 ////////////////////////////////////////

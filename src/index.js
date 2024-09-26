@@ -17,7 +17,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({
       status: 'error',
       message: err.message,
-      stack: process.env.NODE_ENV === 'prd' ? '🥞' : err.stack  // Mostrar el stack trace solo si NO es producción
+      stack: process.env.NODE_ENV === 'prd' ? '🥞' : 'ERROR LVM:' + err.stack  // Mostrar el stack trace solo si NO es producción
     });
   });
 //////////////////////////
