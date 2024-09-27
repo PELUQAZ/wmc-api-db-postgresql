@@ -11,6 +11,7 @@ export const getUserById = async (req, res) => {
   res.json(response.rows);
 };
 
+//Crear usuario
 export const createUser = async (req, res) => {
   try {
     const { name, email } = req.body;
