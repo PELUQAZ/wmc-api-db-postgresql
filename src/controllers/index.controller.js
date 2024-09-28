@@ -14,14 +14,13 @@ export const getUserById = async (req, res) => {
 //Crear usuario
 export const createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-
+    const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts} = req.body;
     const { rows } = await pool.query(
-      "INSERT INTO usuarios_wmc (name, email) VALUES ($1, $2) RETURNING *",
-      [name, email]
+      "INSERT INTO usuarios_wmc (nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts)" + 
+      " VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
+      [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts]
     );
-
-    res.status(201).json(rows[0]);
+    return res.status(201).json(rows[0]);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -29,11 +28,13 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { name, email } = req.body;
+  const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts } = req.body;
 
   const { rows } = await pool.query(
-    "UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *",
-    [name, email, id]
+    "UPDATE users SET nombre_completo = $1, email = $2, direccion_wallet = $3, pais = $4, reputacion = $5, wun_balance = $6, " + 
+      "rol_usuario = $7, estado = $8, datos_adicionales = $9, hash_smart_contracts = $10 " + 
+    "WHERE id = $11 RETURNING *",
+    [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, id]
   );
 
   return res.json(rows[0]);
