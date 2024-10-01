@@ -31,7 +31,7 @@ export const updateUser = async (req, res) => {
   const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts } = req.body;
 
   const { rows } = await pool.query(
-    "UPDATE users SET nombre_completo = $1, email = $2, direccion_wallet = $3, pais = $4, reputacion = $5, wun_balance = $6, " + 
+    "UPDATE usuarios_wmc SET nombre_completo = $1, email = $2, direccion_wallet = $3, pais = $4, reputacion = $5, wun_balance = $6, " + 
       "rol_usuario = $7, estado = $8, datos_adicionales = $9, hash_smart_contracts = $10 " + 
     "WHERE id = $11 RETURNING *",
     [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, id]
