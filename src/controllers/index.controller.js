@@ -42,13 +42,11 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { rowCount } = await pool.query("DELETE FROM usuarios_wmc where id = $1", [
-    id,
-  ]);
-
+  const { rowCount } = await pool.query("DELETE FROM usuarios_wmc where id = $1", 
+    [id,]
+  );
   if (rowCount === 0) {
     return res.status(404).json({ message: "Usuario no encontrado" });
   }
-
   return res.sendStatus(204);
 };
