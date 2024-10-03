@@ -11,6 +11,14 @@ export const getUserById = async (req, res) => {
   res.json(response.rows);
 };
 
+export const getUserByWallet = async (req, res) => {
+  const wallet = req.params.direccion_wallet;
+  //console.log("wallet = ", req.params.direccion_wallet);
+  //console.log("id = ", req.params.id);
+  const response = await pool.query("SELECT * FROM usuarios_wmc WHERE direccion_wallet = $1", [wallet]);
+  res.json(response.rows);
+};
+
 //Crear usuario
 export const createUser = async (req, res) => {
   try {
