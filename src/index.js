@@ -1,9 +1,13 @@
 import express from "express";
+import cors from 'cors';
 import usersRoutes from "./routes/users.routes.js";
 import morgan from "morgan";
 import { PORT } from "./config.js";
 
 const app = express();
+
+app.use(cors());
+app.use(cors({ origin: 'https://workmarketcap.myshopify.com/' }));
 
 app.use(morgan("dev"));
 
