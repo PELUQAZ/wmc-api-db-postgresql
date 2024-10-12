@@ -7,7 +7,8 @@ import { PORT } from "./config.js";
 const app = express();
 
 app.use(cors());
-app.use(cors({ origin: 'https://workmarketcap.myshopify.com/' }));
+//app.use(cors({ origin: 'https://workmarketcap.myshopify.com/' }));
+app.use(cors({ origin: ['https://workmarketcap.myshopify.com', 'https://workmarketcap.myshopify.com/'] }));
 
 app.use(morgan("dev"));
 
