@@ -16,7 +16,6 @@ export const getUserById = async (req, res) => {
 export const getUserByWallet = async (req, res) => {
   const wallet = req.params.direccion_wallet;
   //console.log("wallet = ", req.params.direccion_wallet);
-  //console.log("id = ", req.params.id);
   const response = await pool.query("SELECT * FROM usuarios_wmc WHERE direccion_wallet = $1", [wallet]);
   res.json(response.rows);
 };
@@ -24,11 +23,11 @@ export const getUserByWallet = async (req, res) => {
 //Crear usuario
 export const createUser = async (req, res) => {
   try {
-    const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts } = req.body;
+    const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil } = req.body;
     const { rows } = await pool.query(
-      "INSERT INTO usuarios_wmc (nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts)" +
-      " VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
-      [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts]
+      "INSERT INTO usuarios_wmc (nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil)" +
+      " VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+      [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil]
     );
     return res.status(201).json(rows[0]);
   } catch (error) {
@@ -38,13 +37,13 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts } = req.body;
+  const { nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil } = req.body;
 
   const { rows } = await pool.query(
     "UPDATE usuarios_wmc SET nombre_completo = $1, email = $2, direccion_wallet = $3, pais = $4, reputacion = $5, wun_balance = $6, " +
-    "rol_usuario = $7, estado = $8, datos_adicionales = $9, hash_smart_contracts = $10 " +
-    "WHERE id = $11 RETURNING *",
-    [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, id]
+    "rol_usuario = $7, estado = $8, datos_adicionales = $9, hash_smart_contracts = $10, nro_movil = $11 " +
+    "WHERE id = $12 RETURNING *",
+    [nombre_completo, email, direccion_wallet, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil, id]
   );
 
   return res.json(rows[0]);
@@ -52,14 +51,14 @@ export const updateUser = async (req, res) => {
 
 export const updateUserByWallet = async (req, res) => {
   const direccion_wallet = req.params.direccion_wallet;
-  const { nombre_completo, email, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts } = req.body;
+  const { nombre_completo, email, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil } = req.body;
 
   try {
     const { rows } = await pool.query(
       "UPDATE usuarios_wmc SET nombre_completo = $1, email = $2, pais = $3, reputacion = $4, wun_balance = $5, " +
-      "rol_usuario = $6, estado = $7, datos_adicionales = $8, hash_smart_contracts = $9 " +
-      "WHERE direccion_wallet = $10 RETURNING *",
-      [nombre_completo, email, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, direccion_wallet]
+      "rol_usuario = $6, estado = $7, datos_adicionales = $8, hash_smart_contracts = $9, nro_movil = $10 " +
+      "WHERE direccion_wallet = $11 RETURNING *",
+      [nombre_completo, email, pais, reputacion, wun_balance, rol_usuario, estado, datos_adicionales, hash_smart_contracts, nro_movil, direccion_wallet]
     );
 
     if (rows.length === 0) {
