@@ -21,3 +21,4 @@ router.put("/users/:direccion_wallet", updateUserByWallet);
 router.delete("/users/:id", deleteUser);
 
 export default router;
+
