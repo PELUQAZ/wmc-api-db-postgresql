@@ -5,7 +5,7 @@ import servicesRoutes from "./routes/services.routes.js";
 import morgan from "morgan";
 import { PORT } from "./config.js";
 // Importa el middleware de validación de API Key
-import validateApiKey from './middleware/validApiKey.js';
+//import validateApiKey from './middleware/validApiKey.js';
 
 const app = express();
 
