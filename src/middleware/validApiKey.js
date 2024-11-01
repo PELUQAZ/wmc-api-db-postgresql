@@ -1,4 +1,4 @@
-const validateApiKey = (req, res, next) => {
+/*const validateApiKey = (req, res, next) => {
     const apiKey = req.headers['x-api-key'];
     const validApiKey = process.env.API_KEY;
 
@@ -15,4 +15,4 @@ const validateApiKey = (req, res, next) => {
     }
 };
 
-export default validateApiKey;
+export default validateApiKey;*/
