@@ -4,7 +4,8 @@ import {
   //getUserById,
   getUserByWallet,
   createUser,
-  updateUser,
+  //updateUser,
+  updateUserByWallet,
   deleteUser,
 } from "../controllers/index.controller.js";
 import {pool} from '../db.js'
@@ -15,7 +16,8 @@ router.get("/users", getUsers);
 //router.get("/users/:id", getUserById);
 router.get("/users/:direccion_wallet", getUserByWallet);
 router.post("/users", createUser);
-router.put("/users/:id", updateUser);
+//router.put("/users/:id", updateUser);
+router.put("/users/:direccion_wallet", updateUserByWallet);
 router.delete("/users/:id", deleteUser);
 
 export default router;
