@@ -4,7 +4,7 @@ import usersRoutes from "./routes/users.routes.js";
 import servicesRoutes from "./routes/services.routes.js";
 import morgan from "morgan";
 import { PORT } from "./config.js";
-import validateApiKey from './middleware/validApiKey.js';
+import validateApiKey from './middleware/validateApiKey.js';
 
 const app = express();
 
@@ -12,7 +12,6 @@ const app = express();
 app.use(validateApiKey);
 
 app.use(cors());
-//app.use(cors({ origin: 'https://workmarketcap.myshopify.com/' }));
 app.use(cors({ origin: ['https://workmarketcap.myshopify.com', 'https://workmarketcap.myshopify.com/'] }));
 
 app.use(morgan("dev"));
