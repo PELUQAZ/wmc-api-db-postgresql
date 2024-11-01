@@ -4,8 +4,12 @@ import usersRoutes from "./routes/users.routes.js";
 import servicesRoutes from "./routes/services.routes.js";
 import morgan from "morgan";
 import { PORT } from "./config.js";
+import validateApiKey from './middleware/validApiKey.js';
 
 const app = express();
+
+// Aplica el middleware a todas las rutas
+app.use(validateApiKey);
 
 app.use(cors());
 //app.use(cors({ origin: 'https://workmarketcap.myshopify.com/' }));
