@@ -14,10 +14,10 @@ const router = Router();
 
 router.get("/users", getUsers);
 //router.get("/users/:id", getUserById);
-router.get("/users/:direccion_wallet", getUserByWallet);
+router.get("/users/:wallet", getUserByWallet);
 router.post("/users", createUser);
 //router.put("/users/:id", updateUser);
-router.put("/users/:direccion_wallet", updateUserByWallet);
+router.put("/users/:wallet", updateUserByWallet);
 router.delete("/users/:id", deleteUser);
 
 export default router;
