@@ -102,11 +102,11 @@ export const getServiceById = async (req, res) => {
 //Crear servicio
 export const createService = async (req, res) => {
   try {
-    const { colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, fecha_inicio, estado } = req.body;
+    const { colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado } = req.body;
     const { rows } = await pool.query(
       "INSERT INTO servicios_wmc (colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado)" +
       " VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, fecha_inicio, estado]
+      [colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado]
     );
     return res.status(201).json(rows[0]);
   } catch (error) {
@@ -116,13 +116,13 @@ export const createService = async (req, res) => {
 
 export const updateService = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, fecha_inicio, estado } = req.body;
+  const { colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado } = req.body;
 
   const { rows } = await pool.query(
-    "UPDATE usuarios_wmc SET colaborador_id = $1, titulo_servicio = $2, descripcion = $3, categoria = $4, valor_hora = $5, " +
-    "fecha_inicio = $6, estado = $7 " +
-    "WHERE id = $8 RETURNING *",
-    [colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, fecha_inicio, estado, id]
+    "UPDATE usuarios_wmc SET colaborador_id = $1, titulo_servicio = $2, descripcion = $3, " +
+    "categoria = $4, valor_hora = $5, estado = $6 " +
+    "WHERE id = $7 RETURNING *",
+    [colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado, id]
   );
 
   return res.json(rows[0]);
