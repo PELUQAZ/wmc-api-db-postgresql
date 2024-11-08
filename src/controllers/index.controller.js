@@ -115,17 +115,21 @@ export const createService = async (req, res) => {
 };
 
 export const updateService = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado } = req.body;
+  try {
+    const id = parseInt(req.params.id);
+    const { colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado } = req.body;
 
-  const { rows } = await pool.query(
-    "UPDATE servicios_wmc SET colaborador_id = $1, titulo_servicio = $2, descripcion = $3, " +
-    "categoria = $4, valor_hora = $5, estado = $6 " +
-    "WHERE id = $7 RETURNING *",
-    [colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado, id]
-  );
+    const { rows } = await pool.query(
+      "UPDATE servicios_wmc SET colaborador_id = $1, titulo_servicio = $2, descripcion = $3, " +
+      "categoria = $4, valor_hora = $5, estado = $6 " +
+      "WHERE id = $7 RETURNING *",
+      [colaborador_id, titulo_servicio, descripcion, categoria, valor_hora, estado, id]
+    );
 
-  return res.json(rows[0]);
+    return res.json(rows[0]);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 export const deleteService = async (req, res) => {
