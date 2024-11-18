@@ -99,6 +99,21 @@ export const getServiceById = async (req, res) => {
   res.json(response.rows);
 };
 
+export const getServicesByUserId = async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id);
+    const response = await pool.query("SELECT * FROM servicios_wmc WHERE colaborador_id = $1", [userId]);
+    // Verifica si se encontraron servicios
+    if (response.rows.length === 0) {
+      return res.status(404).json({ message: "No se encontraron servicios para usuario id " + userId });
+    }
+    res.json(response.rows);
+  } catch (error) {
+    console.error("Error al obtener servicios por usuario:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
 //Crear servicio
 export const createService = async (req, res) => {
   try {
