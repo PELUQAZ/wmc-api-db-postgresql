@@ -37,14 +37,14 @@ export const getAgreementsByWallet = async (req, res) => {
 //Crear acuerdo
 export const createAgreement = async (req, res) => {
   try {
-    const { servicio_id, horas, monto, fecha_inicio, estado_arbitraje, fecha_fin, hash_sc, fecha_acuerdo, tipo_token, 
-      acuerdo_id_sc, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx, id_pagador, id_arbitro, id_proveedor } = req.body;
+    const { servicio_id, horas, monto, fecha_inicio, fecha_fin, hash_sc, tipo_token, 
+      acuerdo_id_sc, hash_tx, id_pagador, id_arbitro, id_proveedor } = req.body;
     const { rows } = await pool.query(
-      "INSERT INTO tx_acuerdos (servicio_id, horas, monto, fecha_inicio, estado_arbitraje, fecha_fin, hash_sc, fecha_acuerdo, tipo_token, " +
-      "acuerdo_id_sc, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx, id_pagador, id_arbitro, id_proveedor) " +
-      "VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 15, $16) RETURNING *",
-      [servicio_id, horas, monto, fecha_inicio, estado_arbitraje, fecha_fin, hash_sc, fecha_acuerdo, tipo_token, 
-        acuerdo_id_sc, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx, id_pagador, id_arbitro, id_proveedor]
+      "INSERT INTO tx_acuerdos (servicio_id, horas, monto, fecha_inicio, fecha_fin, hash_sc, tipo_token, " +
+      "acuerdo_id_sc, hash_tx, id_pagador, id_arbitro, id_proveedor) " +
+      "VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *",
+      [servicio_id, horas, monto, fecha_inicio, fecha_fin, hash_sc, tipo_token, 
+        acuerdo_id_sc, hash_tx, id_pagador, id_arbitro, id_proveedor]
     );
     return res.status(201).json(rows[0]);
   } catch (error) {
