@@ -102,7 +102,10 @@ export const getServiceById = async (req, res) => {
 export const getServicesByUserId = async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
-    const response = await pool.query("SELECT * FROM servicios_wmc WHERE colaborador_id = $1", [userId]);
+    const response = await pool.query("SELECT " + 
+      "s.id AS servicio_id, s.colaborador_id, u.wallet AS wallet_colaborador, s.titulo_servicio," +
+      "s.descripcion, s.categoria, s.valor_hora, s.fecha_registro, s.estado, s.modificado " +    
+      "FROM servicios_wmc s INNER JOIN usuarios_wmc u ON s.colaborador_id = u.id WHERE colaborador_id = $1", [userId]);
     // Verifica si se encontraron servicios
     if (response.rows.length === 0) {
       return res.status(404).json({ message: "No se encontraron servicios para usuario id " + userId });
@@ -159,3 +162,40 @@ export const deleteService = async (req, res) => {
 };
 
 // #endregion Servicios
+
+// #region Acuerdos
+
+//Obtener acuerdos
+export const getAgreements = async (req, res) => {
+  const response = await pool.query("SELECT * FROM tx_acuerdos ORDER BY id ASC");
+  res.status(200).json(response.rows);
+};
+
+//Consultar acuerdos a pagar
+export const getAgreementsToPay = async (req, res) => {
+  const response = await pool.query("SELECT id FROM tx_acuerdos WHERE fecha_fin = CURRENT_DATE AND estado IN ('Contratado', 'EnCurso') ORDER BY id ASC");
+  res.status(200).json(response.rows);
+};
+
+//Crear acuerdo
+export const createAgreement = async (req, res) => {
+  try {
+    const { pagador_id, servicio_id, horas_contratadas, monto, fecha_inicio, estado, fecha_fin, 
+      hash_smart_contract, datos_adicionales, fecha_solicitud, fecha_acepta_rechaza, tipo_token, 
+      acuerdo_id_sc, arbitro_id, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx } = req.body;
+    const { rows } = await pool.query(
+      "INSERT INTO tx_acuerdos (pagador_id, servicio_id, horas_contratadas, monto, fecha_inicio, estado, fecha_fin," +
+	    " hash_smart_contract, datos_adicionales, fecha_solicitud, fecha_acepta_rechaza, tipo_token," +
+	    " acuerdo_id_sc, arbitro_id, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx)" +
+      " VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 15, $16, $17) RETURNING *",
+      [pagador_id, servicio_id, horas_contratadas, monto, fecha_inicio, estado, fecha_fin, 
+        hash_smart_contract, datos_adicionales, fecha_solicitud, fecha_acepta_rechaza, tipo_token, 
+        acuerdo_id_sc, arbitro_id, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx]
+    );
+    return res.status(201).json(rows[0]);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// #endregion Acuerdos

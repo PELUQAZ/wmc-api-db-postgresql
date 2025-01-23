@@ -1,0 +1,20 @@
+import { Router } from "express";
+import {
+  getAgreements,
+  getAgreementsToPay,
+  createAgreement,
+  getAgreementById
+  //getServicesBySPA,
+  //getServicesBySPR,
+  //updateAgreement
+} from "../controllers/index.controller.js";
+
+const router = Router();
+
+router.get("/agreements", getAgreements);
+router.get("/agreements-to-pay", getAgreementsToPay);
+router.get("/agreements", createAgreement);
+router.get("/agreements/spa/:id", getAgreementById);
+//router.get("/agreements/:id", getAgreementBySPA);
+//router.get("/agreements/:id", getAgreementBySPR);
+export default router;
