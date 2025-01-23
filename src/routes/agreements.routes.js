@@ -7,7 +7,7 @@ import {
   //getServicesBySPA,
   //getServicesBySPR,
   //updateAgreement
-} from "../controllers/index.controller.js";
+} from "../controllers/index.agreements.controller.js";
 
 const router = Router();
 

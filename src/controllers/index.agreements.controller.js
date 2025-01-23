@@ -1,4 +1,4 @@
-/*import { pool } from "../db.js";
+import { pool } from "../db.js";
 
 //Obtener acuerdos
 export const getAgreements = async (req, res) => {
@@ -51,5 +51,3 @@ export const createAgreement = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
-
-*/

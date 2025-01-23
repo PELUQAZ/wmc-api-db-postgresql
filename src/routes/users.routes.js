@@ -7,7 +7,7 @@ import {
   //updateUser,
   updateUserByWallet,
   deleteUser,
-} from "../controllers/index.controller.js";
+} from "../controllers/index.users.controller.js";
 import {pool} from '../db.js'
 
 const router = Router();
