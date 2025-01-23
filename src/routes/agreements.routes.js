@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   getAgreements,
   createAgreement,
-  getAgreementById,
+  //getAgreementById,
   getAgreementsByWallet
   //getServicesBySPA,
   //getServicesBySPR,
