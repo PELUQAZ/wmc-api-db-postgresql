@@ -167,7 +167,15 @@ export const deleteService = async (req, res) => {
 
 //Obtener acuerdos
 export const getAgreements = async (req, res) => {
-  const response = await pool.query("SELECT * FROM tx_acuerdos ORDER BY id ASC");
+  //const response = await pool.query("SELECT * FROM tx_acuerdos ORDER BY id ASC");
+  const response = await pool.query("SELECT a.id AS acuerdo_id, a.id_servicio, a.horas, a.monto, a.fecha_inicio, a.estado_arbitraje, a.fecha_fin, a.hash_sc," + 
+    "a.fecha_acuerdo, a.tipo_token, a.acuerdo_id_sc, a.pagador_de_acuerdo, a.proveedor_de_acuerdo, a.hash_tx, a.id_pagador," +
+    "u1.wallet AS wallet_pagador, a.id_proveedor, u2.wallet AS wallet_proveedor, a.id_arbitro, u3.wallet AS wallet_arbitro " +
+    "FROM tx_acuerdos a " +
+    "LEFT JOIN usuarios_wmc u1 ON a.id_pagador = u1.id " +
+    "LEFT JOIN usuarios_wmc u2 ON a.id_proveedor = u2.id" +
+    "LEFT JOIN usuarios_wmc u3 ON a.id_arbitro = u3.id"
+  );
   res.status(200).json(response.rows);
 };
 
