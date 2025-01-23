@@ -6,7 +6,7 @@ import {
   createService,
   updateService,
   deleteService,
-} from "../controllers/index.controller.js";
+} from "../controllers/index.services.controller.js";
 import {pool} from '../db.js'
 
 const router = Router();
