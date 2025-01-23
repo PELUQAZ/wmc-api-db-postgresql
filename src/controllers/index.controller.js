@@ -168,7 +168,7 @@ export const deleteService = async (req, res) => {
 //Obtener acuerdos
 export const getAgreements = async (req, res) => {
   //const response = await pool.query("SELECT * FROM tx_acuerdos ORDER BY id ASC");
-  const response = await pool.query("SELECT a.id AS acuerdo_id, a.id_servicio, a.horas, a.monto, a.fecha_inicio, a.estado_arbitraje, a.fecha_fin, a.hash_sc," + 
+  const response = await pool.query("SELECT a.id AS id_acuerdo, a.id_servicio, a.horas, a.monto, a.fecha_inicio, a.estado_arbitraje, a.fecha_fin, a.hash_sc," + 
     "a.fecha_acuerdo, a.tipo_token, a.acuerdo_id_sc, a.pagador_de_acuerdo, a.proveedor_de_acuerdo, a.hash_tx, a.id_pagador," +
     "u1.wallet AS wallet_pagador, a.id_proveedor, u2.wallet AS wallet_proveedor, a.id_arbitro, u3.wallet AS wallet_arbitro " +
     "FROM tx_acuerdos a " +
@@ -188,17 +188,14 @@ export const getAgreementsToPay = async (req, res) => {
 //Crear acuerdo
 export const createAgreement = async (req, res) => {
   try {
-    const { pagador_id, servicio_id, horas_contratadas, monto, fecha_inicio, estado, fecha_fin, 
-      hash_smart_contract, datos_adicionales, fecha_solicitud, fecha_acepta_rechaza, tipo_token, 
-      acuerdo_id_sc, arbitro_id, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx } = req.body;
+    const { servicio_id, horas, monto, fecha_inicio, estado_arbitraje, fecha_fin, hash_sc, fecha_acuerdo, tipo_token, 
+      acuerdo_id_sc, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx, id_pagador, id_arbitro, id_proveedor } = req.body;
     const { rows } = await pool.query(
-      "INSERT INTO tx_acuerdos (pagador_id, servicio_id, horas_contratadas, monto, fecha_inicio, estado, fecha_fin," +
-	    " hash_smart_contract, datos_adicionales, fecha_solicitud, fecha_acepta_rechaza, tipo_token," +
-	    " acuerdo_id_sc, arbitro_id, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx)" +
-      " VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 15, $16, $17) RETURNING *",
-      [pagador_id, servicio_id, horas_contratadas, monto, fecha_inicio, estado, fecha_fin, 
-        hash_smart_contract, datos_adicionales, fecha_solicitud, fecha_acepta_rechaza, tipo_token, 
-        acuerdo_id_sc, arbitro_id, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx]
+      "INSERT INTO tx_acuerdos (servicio_id, horas, monto, fecha_inicio, estado_arbitraje, fecha_fin, hash_sc, fecha_acuerdo, tipo_token, " +
+      "acuerdo_id_sc, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx, id_pagador, id_arbitro, id_proveedor) " +
+      "VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 15, $16) RETURNING *",
+      [servicio_id, horas, monto, fecha_inicio, estado_arbitraje, fecha_fin, hash_sc, fecha_acuerdo, tipo_token, 
+        acuerdo_id_sc, pagador_de_acuerdo, proveedor_de_acuerdo, hash_tx, id_pagador, id_arbitro, id_proveedor]
     );
     return res.status(201).json(rows[0]);
   } catch (error) {
