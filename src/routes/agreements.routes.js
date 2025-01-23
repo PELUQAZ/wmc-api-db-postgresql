@@ -1,9 +1,9 @@
 import { Router } from "express";
 import {
   getAgreements,
-  getAgreementsToPay,
   createAgreement,
-  getAgreementById
+  getAgreementById,
+  getAgreementsByWallet
   //getServicesBySPA,
   //getServicesBySPR,
   //updateAgreement
@@ -12,9 +12,9 @@ import {
 const router = Router();
 
 router.get("/agreements", getAgreements);
-router.get("/agreements-to-pay", getAgreementsToPay);
 router.get("/agreements", createAgreement);
-router.get("/agreements/spa/:id", getAgreementById);
+//router.get("/agreements/spa/:id", getAgreementById);
+router.get("/agreements/:wallet", getAgreementsByWallet);
 //router.get("/agreements/:id", getAgreementBySPA);
 //router.get("/agreements/:id", getAgreementBySPR);
 export default router;

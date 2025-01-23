@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   getUsers,
-  //getUserById,
+  getUserById,
   getUserByWallet,
   createUser,
   //updateUser,
@@ -13,8 +13,8 @@ import {pool} from '../db.js'
 const router = Router();
 
 router.get("/users", getUsers);
-//router.get("/users/:id", getUserById);
-router.get("/users/:wallet", getUserByWallet);
+router.get("/users/id/:id", getUserById); // Buscar por ID
+router.get("/users/wallet/:wallet", getUserByWallet); // Buscar por wallet
 router.post("/users", createUser);
 //router.put("/users/:id", updateUser);
 router.put("/users/:wallet", updateUserByWallet);
