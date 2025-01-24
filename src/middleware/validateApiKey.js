@@ -4,6 +4,8 @@ import {
 
 const validateApiKey = (req, res, next) => {
     const apiKey = req.headers['x-api-key'];
+    console.log("apiKey = ", apiKey);    
+    console.log("API_KEY = ", API_KEY);
     const validApiKey = API_KEY;
 
     // Verifica si la API_KEY está definida
