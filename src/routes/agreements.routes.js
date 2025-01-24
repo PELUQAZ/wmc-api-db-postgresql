@@ -8,6 +8,7 @@ import {
   //getServicesBySPR,
   //updateAgreement
 } from "../controllers/index.agreements.controller.js";
+import {pool} from '../db.js'
 
 const router = Router();
 
