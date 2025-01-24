@@ -8,7 +8,7 @@ export const getAgreements = async (req, res) => {
     "upa.wallet AS wallet_pagador, a.id_proveedor, upr.wallet AS wallet_proveedor, a.id_arbitro, ua.wallet AS wallet_arbitro " +
     "FROM tx_acuerdos a " +
     "LEFT JOIN usuarios_wmc upa ON a.id_pagador = upa.id " +
-    "LEFT JOIN usuarios_wmc upr ON a.id_proveedor = upr.id" +
+    "LEFT JOIN usuarios_wmc upr ON a.id_proveedor = upr.id " +
     "LEFT JOIN usuarios_wmc ua ON a.id_arbitro = ua.id"
   );
   res.status(200).json(response.rows);
