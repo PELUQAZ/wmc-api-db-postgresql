@@ -13,7 +13,7 @@ import {pool} from '../db.js'
 const router = Router();
 
 router.get("/agreements", getAgreements);
-router.get("/agreements", createAgreement);
+router.post("/agreements", createAgreement);
 //router.get("/agreements/spa/:id", getAgreementById);
 router.get("/agreements/:wallet", getAgreementsByWallet);
 //router.get("/agreements/:id", getAgreementBySPA);
