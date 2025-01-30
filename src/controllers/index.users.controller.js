@@ -13,13 +13,13 @@ export const getUserById = async (req, res) => {
 
 export const getUserByWallet = async (req, res) => {
   const wallet = req.params.wallet;
-  const response = await pool.query("SELECT * FROM usuarios_wmc WHERE wallet = $1", [wallet]);
+  const response = await pool.query("SELECT * FROM usuarios_wmc WHERE wallet ILIKE $1", [wallet]);
   res.json(response.rows);
 };
 
 export const getUsersIdByWallets = async (req, res) => {
   const wallets = req.params.wallets.split(",");  // Convertir el string a un array
-  const response = await pool.query("SELECT id, wallet FROM usuarios_wmc WHERE wallet = ANY($1)", [wallets]);
+  const response = await pool.query("SELECT id, wallet FROM usuarios_wmc WHERE wallet ILIKE ANY($1)", [wallets]);
   res.json(response.rows);
 };
 
@@ -60,7 +60,7 @@ export const updateUserByWallet = async (req, res) => {
     const { rows } = await pool.query(
       "UPDATE usuarios_wmc SET nombre_completo = $1, email = $2, pais = $3, reputacion = $4, " +
       "rol_usuario = $5, estado = $6, nro_movil = $7, bio = $8 " +
-      "WHERE wallet = $9 RETURNING *",
+      "WHERE wallet ILIKE $9 RETURNING *",
       [nombre_completo, email, pais, reputacion, rol_usuario, estado, nro_movil, bio, wallet]
     );
 

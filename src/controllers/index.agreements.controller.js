@@ -24,7 +24,7 @@ export const getAgreementsByWallet = async (req, res) => {
     "LEFT JOIN usuarios_wmc upa ON a.id_pagador = upa.id " +
     "LEFT JOIN usuarios_wmc upr ON a.id_proveedor = upr.id" +
     "LEFT JOIN usuarios_wmc ua ON a.id_arbitro = ua.id " + 
-    "WHERE upa.wallet = $1 OR upr.wallet = $1 OR ua.wallet = $1", [wallet]);
+    "WHERE upa.wallet ILIKE $1 OR upr.wallet ILIKE $1 OR ua.wallet ILIKE $1", [wallet]);
   res.status(200).json(response.rows);
 };
 
