@@ -18,9 +18,28 @@ export const getUserByWallet = async (req, res) => {
 };
 
 export const getUsersIdByWallets = async (req, res) => {
-  const wallets = req.params.wallets.split(",");  // Convertir el string a un array
-  const response = await pool.query("SELECT id, wallet FROM usuarios_wmc WHERE wallet ILIKE ANY($1)", [wallets]);
-  res.json(response.rows);
+  try {
+    const wallets = req.params.wallets.split(",").map(w => w.toLowerCase()); // Convertir a minúsculas para asegurar coincidencias
+    // Mapa de roles basado en el orden en que llegan las wallets
+    const walletRoles = {
+      [wallets[0]]: "pagador",
+      [wallets[1]]: "proveedor",
+      [wallets[2]]: "árbitro"
+    };
+
+    const response = await pool.query("SELECT id, LOWER(wallet) AS wallet FROM usuarios_wmc WHERE LOWER(wallet) = ANY($1)", [wallets]);
+    // Mapear los resultados para incluir el rol de cada wallet
+    const result = response.rows.map(row => ({
+      id: row.id,
+      wallet: row.wallet,
+      rol: walletRoles[row.wallet] || "desconocido"  // Asignar el rol basado en la wallet
+    }));
+
+    res.json(result);
+  } catch (error) {
+    console.error("Error al obtener IDs de usuarios por wallets:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 };
 
 //Crear usuario
